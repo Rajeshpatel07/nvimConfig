@@ -110,6 +110,13 @@ vim.opt.mouse = 'a'
 -- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false
 
+-- Auto Read files
+vim.opt.autoread = true
+vim.api.nvim_create_autocmd({ 'BufEnter', 'CursorHold', 'CursorHoldI', 'FocusGained' }, {
+  command = "if mode() != 'c' | checktime | endif",
+  pattern = { '*' },
+})
+
 -- Sync clipboard between OS and Neovim.
 --  Schedule the setting after `UiEnter` because it can increase startup-time.
 --  Remove this option if you want your OS clipboard to remain independent.
@@ -174,6 +181,16 @@ vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist, { desc = 'Open diagn
 -- NOTE: This won't work in all terminal emulators/tmux/etc. Try your own mapping
 -- or just use <C-\><C-n> to exit terminal mode
 vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+
+--NOTE: keymap for opening terminal using tmux
+vim.keymap.set('n', '<leader>m', '<cmd>!tmux resize-pane -Z \n<CR>', { desc = 'maximize the current pane in tmux' })
+vim.keymap.set('n', '<leader>wh', '<cmd>!tmux split-window -v \n<CR>', { desc = 'split window horizontally with tmux' })
+vim.keymap.set('n', '<leader>wv', '<cmd>!tmux split-window -h \n <CR>', { desc = 'split window vertically with tmux' })
+vim.keymap.set('n', '<leader>w1', '<cmd>!tmux join-pane -hs 0:2.0 \n<CR>', { desc = 'join pane with tmux' })
+vim.keymap.set('n', '<leader>w2', '<cmd>!tmux join-pane -hs 0:3.0 \n<CR>', { desc = 'join pane with tmux' })
+vim.keymap.set('n', '<leader>w/', '<cmd>split<CR> <C-w>L', { desc = 'split screen vertically in neovim' })
+vim.keymap.set('n', '<leader>w-', '<cmd>split<CR>', { desc = 'split screen horizontally in neovim' })
+vim.keymap.set('n', '<leader>g', '<cmd>terminal<CR> i  lazygit<cmd>\n<CR>', { desc = 'open lazygit' })
 
 -- TIP: Disable arrow keys in normal mode
 -- vim.keymap.set('n', '<left>', '<cmd>echo "Use h to move!!"<CR>')
@@ -608,7 +625,7 @@ require('lazy').setup({
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        -- clangd = {},
+        clangd = {},
         -- gopls = {},
         pyright = {},
         -- rust_analyzer = {},
@@ -618,7 +635,7 @@ require('lazy').setup({
         --    https://github.com/pmizio/typescript-tools.nvim
         --
         -- But for many setups, the LSP (`tsserver`) will work just fine
-        tsserver = {},
+        -- tsserver = {},
         --
 
         lua_ls = {
@@ -931,6 +948,10 @@ require('lazy').setup({
   require 'kickstart.plugins.autopairs',
   require 'kickstart.plugins.neo-tree',
   require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps
+  require 'kickstart.plugins.barbar', -- file tabs
+  require 'kickstart.plugins.tmux-navigator',
+  require 'kickstart.plugins.screenkey',
+  require 'kickstart.plugins.cloak',
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.
