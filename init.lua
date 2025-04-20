@@ -110,6 +110,9 @@ vim.opt.mouse = 'a'
 -- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false
 
+-- forcing shell to bash
+vim.opt.runtimepath:append '/usr/lib/luarocks/rocks-5.1'
+
 -- Auto Read files
 vim.opt.autoread = true
 vim.api.nvim_create_autocmd({ 'BufEnter', 'CursorHold', 'CursorHoldI', 'FocusGained' }, {
@@ -627,7 +630,7 @@ require('lazy').setup({
       local servers = {
         clangd = {},
         -- gopls = {},
-        pyright = {},
+        -- pyright = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
         --
@@ -723,7 +726,7 @@ require('lazy').setup({
         -- python = { 'isort', 'black' },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
-        javascript = { 'prettierd', 'prettier', stop_after_first = true },
+        javascript = { 'biome', 'prettier', 'prettierd', stop_after_first = true },
       },
     },
   },
@@ -952,7 +955,6 @@ require('lazy').setup({
   require 'kickstart.plugins.tmux-navigator',
   require 'kickstart.plugins.screenkey',
   require 'kickstart.plugins.cloak',
-  require 'kickstart.plugins.render-markdown',
 
   -- NOTE: The import below can automatically add your own plugins, configuration, etc from `lua/custom/plugins/*.lua`
   --    This is the easiest way to modularize your config.

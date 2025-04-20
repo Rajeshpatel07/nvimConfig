@@ -21,6 +21,9 @@ return {
     animation = true,
     insert_at_start = true,
     tabpages = true,
-    -- …etc.
+    auto_hide = false,
+    icons = {
+      preset = 'slanted',
+    },
   },
 }
