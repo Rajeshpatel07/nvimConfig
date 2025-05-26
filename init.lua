@@ -726,7 +726,7 @@ require('lazy').setup({
         -- python = { 'isort', 'black' },
         --
         -- You can use 'stop_after_first' to run the first available formatter from the list
-        javascript = { 'biome', 'prettier', 'prettierd', stop_after_first = true },
+        javascript = { 'biome', stop_after_first = true },
       },
     },
   },
